@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:music_player/src/services/music_service.dart';
 
 import 'settings_controller.dart';
 
@@ -29,13 +30,7 @@ class SettingsView extends StatelessWidget {
                       final folder =
                           await FilePicker.platform.getDirectoryPath();
                       if (folder == null) return;
-                      final Directory root = Directory(folder!);
-                      root.list(recursive: true).handleError((e) {}).where((e) {
-                        return e is! Directory &&
-                            e.path.toLowerCase().endsWith(".mp3");
-                      }).forEach((element) {
-                        print(element.toString());
-                      });
+                      await MusicService().loadMusic(folder);
                       controller.updateMusicFolder(folder);
                     },
                     child: const Text('Select Folder')),

@@ -1,6 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:music_player/src/services/music_service.dart';
+
 import '../settings/settings_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -24,23 +25,23 @@ class HomeView extends StatelessWidget {
           ),
         ],
       ),
-      body: ElevatedButton(
-          onPressed: () async {
-            // final result =
-            //     await FilePicker.platform.pickFiles(allowMultiple: false);
-            //
-            // if (result == null) return;
-            // print(result.files.first.path);
-            // List<AudioPlayer> audioPlayers = List.generate(
-            //   1,
-            //   (_) => AudioPlayer()..setReleaseMode(ReleaseMode.stop),
-            // );
-            // AudioPlayer player = audioPlayers[0];
-            // final String url = 'file://${result.files.first.path!}';
-            // print('url=$url');
-            // await player.play(UrlSource(url));
-          },
-          child: const Text('File Browser')),
+      body: Center(
+        child: ElevatedButton(
+            onPressed: () async {
+              List<AudioPlayer> audioPlayers = List.generate(
+                1,
+                (_) => AudioPlayer()..setReleaseMode(ReleaseMode.stop),
+              );
+              AudioPlayer player = audioPlayers[0];
+              while (true) {
+                final String? mp3 = await MusicService().getRandom();
+                if (mp3 == null) break;
+                final String url = 'file://$mp3';
+                await player.play(UrlSource(url));
+              }
+            },
+            child: const Text('Play')),
+      ),
     );
   }
 }
