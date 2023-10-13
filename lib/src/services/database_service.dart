@@ -35,7 +35,7 @@ class DatabaseService {
     db.execute('''
       create table if not exists music (
         path text unique,
-        last_played datetime default current_timestamp
+        last_played datetime
       )
     ''');
     return db;
