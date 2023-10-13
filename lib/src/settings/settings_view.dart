@@ -1,4 +1,6 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+
 import 'settings_controller.dart';
 
 class SettingsView extends StatelessWidget {
@@ -16,28 +18,40 @@ class SettingsView extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16),
-        // Glue the SettingsController to the theme selection DropdownButton.
-        //
-        // When a user selects a theme from the dropdown list, the
-        // SettingsController is updated, which rebuilds the MaterialApp.
-        child: DropdownButton<ThemeMode>(
-          // Read the selected themeMode from the controller
-          value: controller.themeMode,
-          // Call the updateThemeMode method any time the user selects a theme.
-          onChanged: controller.updateThemeMode,
-          items: const [
-            DropdownMenuItem(
-              value: ThemeMode.system,
-              child: Text('System Theme'),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                ElevatedButton(
+                    onPressed: () async {
+                      final folder = await FilePicker.platform.getDirectoryPath();
+                      if (folder == null) return;
+                      controller.updateMusicFolder(folder);
+                    },
+                    child: const Text('Select Folder')),
+                Text(controller.musicFolder),
+              ],
             ),
-            DropdownMenuItem(
-              value: ThemeMode.light,
-              child: Text('Light Theme'),
+            DropdownButton<ThemeMode>(
+              // Read the selected themeMode from the controller
+              value: controller.themeMode,
+              // Call the updateThemeMode method any time the user selects a theme.
+              onChanged: controller.updateThemeMode,
+              items: const [
+                DropdownMenuItem(
+                  value: ThemeMode.system,
+                  child: Text('System Theme'),
+                ),
+                DropdownMenuItem(
+                  value: ThemeMode.light,
+                  child: Text('Light Theme'),
+                ),
+                DropdownMenuItem(
+                  value: ThemeMode.dark,
+                  child: Text('Dark Theme'),
+                )
+              ],
             ),
-            DropdownMenuItem(
-              value: ThemeMode.dark,
-              child: Text('Dark Theme'),
-            )
           ],
         ),
       ),

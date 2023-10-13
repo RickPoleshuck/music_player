@@ -26,19 +26,19 @@ class HomeView extends StatelessWidget {
       ),
       body: ElevatedButton(
           onPressed: () async {
-            final result =
-                await FilePicker.platform.pickFiles(allowMultiple: false);
-
-            if (result == null) return;
-            print(result.files.first.path);
-            List<AudioPlayer> audioPlayers = List.generate(
-              1,
-              (_) => AudioPlayer()..setReleaseMode(ReleaseMode.stop),
-            );
-            AudioPlayer player = audioPlayers[0];
-            final String url = 'file://${result.files.first.path!}';
-            print('url=$url');
-            await player.play(UrlSource(url));
+            // final result =
+            //     await FilePicker.platform.pickFiles(allowMultiple: false);
+            //
+            // if (result == null) return;
+            // print(result.files.first.path);
+            // List<AudioPlayer> audioPlayers = List.generate(
+            //   1,
+            //   (_) => AudioPlayer()..setReleaseMode(ReleaseMode.stop),
+            // );
+            // AudioPlayer player = audioPlayers[0];
+            // final String url = 'file://${result.files.first.path!}';
+            // print('url=$url');
+            // await player.play(UrlSource(url));
           },
           child: const Text('File Browser')),
     );

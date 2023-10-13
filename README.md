@@ -22,6 +22,9 @@ images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-awa
 
 ## Localization
 
+sudo apt install sqlite3 libsqlite3-dev
+
+
 This project generates localized messages based on arb files found in
 the `lib/src/localization` directory.
 
