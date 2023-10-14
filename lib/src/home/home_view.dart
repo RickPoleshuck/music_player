@@ -36,8 +36,7 @@ class HomeView extends StatelessWidget {
               while (true) {
                 final String? mp3 = await MusicService().getRandom();
                 if (mp3 == null) break;
-                final String url = 'file://$mp3';
-                await player.play(UrlSource(url));
+                await MusicService().play(mp3);
               }
             },
             child: const Text('Play')),
